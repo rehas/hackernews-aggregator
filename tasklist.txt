@@ -1,14 +1,17 @@
 Sungevity Interview 20201113
 -------------------
 
-- Talk to public api of hackernews
-    - figure out which endpoints to use
-    - make initial calls to check the data structure
++ Talk to public api of hackernews
+    + figure out which endpoints to use
+    + make initial calls to check the data structure
 
-- Setup server
+- Readme.MD
+
+HERE=> Setup server
     - Node
     - nodemon
     - koa
+    - return initial data from /recent endpoint
 
 - Setup endpoints
     - /recent
@@ -16,7 +19,9 @@ Sungevity Interview 20201113
     - /karma
 
 - /recent
-    - Call hackernews api 
+    - Call hackernews api to get last 250 story titles
+        -> https://hacker-news.firebaseio.com/v0/topstories.json
+        -> Limit top 250
     -* Aggregate the results
 
 - /historical
