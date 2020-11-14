@@ -7,18 +7,18 @@ Sungevity Interview 20201113
 
 - Readme.MD
 
-HERE=> Setup server
-    - Node
-    - nodemon
-    - koa
-    - return initial data from /recent endpoint
++ Setup server
+    + Node 12.19
+    + nodemon
+    + koa
+    + return initial data from /recent endpoint
 
 - Setup endpoints
     - /recent
     - /historical
     - /karma
 
-- /recent
+HERE=> /recent
     - Call hackernews api to get last 250 story titles
         -> https://hacker-news.firebaseio.com/v0/topstories.json
         -> Limit top 250
