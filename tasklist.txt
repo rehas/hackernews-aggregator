@@ -1,0 +1,28 @@
+Sungevity Interview 20201113
+-------------------
+
+- Talk to public api of hackernews
+    - figure out which endpoints to use
+    - make initial calls to check the data structure
+
+- Setup server
+    - Node
+    - nodemon
+    - koa
+
+- Setup endpoints
+    - /recent
+    - /historical
+    - /karma
+
+- /recent
+    - Call hackernews api 
+    -* Aggregate the results
+
+- /historical
+    -* parallelize the calls
+
+- [DO LAST] /karma 
+    - Figure this out
+        - What exactly is karma
+        - How the calculation works
