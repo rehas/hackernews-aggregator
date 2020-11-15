@@ -18,11 +18,24 @@ Sungevity Interview 20201113
     - /historical
     - /karma
 
-HERE=> /recent
-    - Call hackernews api to get last 250 story titles
-        -> https://hacker-news.firebaseio.com/v0/topstories.json
+- /recent
+    // Recent top words: return a set of 25 words that are the most occurring words in the titles of the last 250 posted stories. 
+    // The response should include the number of times each word is occurring.
+
+    + Call hackernews api to get last 250 story titles
+        -> https://hacker-news.firebaseio.com/v0/newstories.json
         -> Limit top 250
-    -* Aggregate the results
+    -> For every id in list
+        + Get Title
+        + Sanitize title with stop words
+        + Count Words
+        + Save for later use
+            + in memory or file
+                + go with in memory for now, that can be persisted to a file later
+    + Get words from each title
+        + Create a global dictionary for all the words
+    + Create a dictionary
+    + Aggregate the results
 
 - /historical
     -* parallelize the calls
