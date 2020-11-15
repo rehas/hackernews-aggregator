@@ -14,7 +14,7 @@ async function getLatest250(){
 function getTitles(idList){
     let result = []
     const idsNotInCache = idList.filter(x=> !checkedTitles[x])
-
+    console.log(`${idsNotInCache.length} new items arrived`);
     const l = idsNotInCache.length;
 
     for (let i = 0; i < 5; i++) {
@@ -32,7 +32,6 @@ function sanitizeTitles(titlesReponseData){
     return titlesReponseData.map(x=> {
         let id = x.data && x.data.id;
         let title = x.data && removeStopWords(x.data.title.toLowerCase())
-        console.log(title, x.data.title) //TODO: Remove log
         return {
             [id] : title
         }
@@ -50,11 +49,13 @@ function updateCheckedTitles(titles){
     })
 }
 
-function udpateWordCounts(checkedTitles){
-    Object.keys(checkedTitles).forEach(titleId=> {
-        console.log(titleId)
+function udpateWordCounts(newTitles){
+    newTitles.forEach(title=> {
+        console.log("new title coming")
+        console.log(title)
+        let titleId = Object.keys(title)[0]
         Object.keys(checkedTitles[titleId]).forEach(k=>{
-            console.log(k)
+            // console.log(k)
             titleWordCounts[k] = (titleWordCounts[k] || 0) + checkedTitles[titleId][k]
         })
     })
@@ -75,12 +76,12 @@ async function processRecent(){
     
     console.log(latest250.length)
     let titlesReponseData = await getTitles(latest250);
-    
+    console.log(titlesReponseData);
     let titles = sanitizeTitles(titlesReponseData);
-
+    console.log(titles)
     updateCheckedTitles(titles);
 
-    udpateWordCounts(checkedTitles);
+    udpateWordCounts(titles);
 
     let result =  getTopPopularWords(titleWordCounts, 25);
 
