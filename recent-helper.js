@@ -1,15 +1,10 @@
 const ax = require('axios')
 const {removeStopWords}  = require("./utils")
+const {getLatest, getItemUrl} = require("./hackernewsapi-utils")
 
-const newStoriesUrl = "https://hacker-news.firebaseio.com/v0/newstories.json";
-const getItemUrl = "https://hacker-news.firebaseio.com/v0/item/";
 
 let checkedTitles = {};
 let titleWordCounts = {};
-
-async function getLatest250(){
-   return await ax.get(newStoriesUrl);
-}
 
 function getTitles(idList){
     let result = []
@@ -71,7 +66,7 @@ function getTopPopularWords(titleWordCounts, top){
 }
 
 async function processRecent(){
-    let responseData = await getLatest250();
+    let responseData = await getLatest();
     let latest250 = responseData.data.slice(0, 250)
     
     console.log(latest250.length)
@@ -83,8 +78,13 @@ async function processRecent(){
 
     udpateWordCounts(titles);
 
-    let result =  getTopPopularWords(titleWordCounts, 25);
+    let resultArray =  getTopPopularWords(titleWordCounts, 25);
 
+    let result = {}
+
+    resultArray.forEach(x=>{
+        result[x[0]] = x[1]
+    });
     console.log("TITLES", titles.length)
     console.log("Result", result.length)
     console.log("CHECKEDTITLES", Object.keys( checkedTitles).length)
@@ -92,7 +92,6 @@ async function processRecent(){
 }
 
 module.exports = {
-    getLatest250,
     getTitles,
     processRecent
 }
