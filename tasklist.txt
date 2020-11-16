@@ -36,9 +36,15 @@ Sungevity Interview 20201113
         + Create a global dictionary for all the words
     + Create a dictionary
     + Aggregate the results
+    - improve sanitation
 
 - /historical
     -* parallelize the calls
+    + Get the lastest 500 items
+    HERE=> filter out the ones that are not comments.
+    - don't send a new request if item is in cache
+    - Sanitize the "text" field.
+    - Process for aggregation
 
 - [DO LAST] /karma 
     - Figure this out
