@@ -1,5 +1,5 @@
 const ax = require('axios')
-const {removeStopWords}  = require("./utils")
+const {removeStopWords, filterChars}  = require("./utils")
 const {getLatest, getLatestItemUrls,getItemUrl} = require("./hackernewsapi-utils")
 
 const PromisePool = require('@supercharge/promise-pool');
@@ -54,7 +54,10 @@ function updateCheckedTitles(titles){
     titles.forEach(x=>{
         const key = Object.keys(x)[0];
         const frequencyMap = {}
-        x[key].split(' ').forEach(element => {
+        if (!x[key]){
+            return;
+        }
+        x[key].split(' ').filter(w=> filterChars(w)).forEach(element => {
             frequencyMap[element] = (frequencyMap[element] || 0) +1;
         });
         checkedTitles[key] = frequencyMap
@@ -66,6 +69,9 @@ function udpateWordCounts(newTitles){
         console.log("new title coming")
         console.log(title)
         let titleId = Object.keys(title)[0]
+        if (!checkedTitles[titleId]){
+            return;
+        }
         Object.keys(checkedTitles[titleId]).forEach(k=>{
             // console.log(k)
             titleWordCounts[k] = (titleWordCounts[k] || 0) + checkedTitles[titleId][k]
