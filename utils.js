@@ -9,9 +9,20 @@ function removeStopWords(inputString){
                 ).join(' ')
                     .replace(new RegExp('[#"?%.$:\\-\']', "gi"), '')
                     .replace(new RegExp("\\b\d+\\b", "gi"), '')
+                    .replace(new RegExp("<[^>]*>", ''))
+                    .replace(new RegExp("<[^>]*>", ''))
                     .replace("-", "")
 }
 
+function filterChars(word){
+    
+    let charArr = ['&', '(', ')', ',', '<', '>', ';', '!', "\\n", '“', '’', '”'];
+    var res = true;
+    charArr.forEach(c=> res = res && word.indexOf(c) <0 );
+    return res;
+}
+
 module.exports = {
-    removeStopWords
+    removeStopWords,
+    filterChars
 }
