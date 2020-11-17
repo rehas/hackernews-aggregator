@@ -40,8 +40,12 @@ Sungevity Interview 20201113
 
 - /historical
     -* parallelize the calls
-    + Get the lastest 500 items
-    HERE=> filter out the ones that are not comments.
+    + Get the lastest 1000 items
+        - Walk back from last one
+    + filter out the ones that are not comments.
+    HERE=> Nicely parallelize the calls with 100 max concurrency level
+        - Clean code
+        - Speedup resolveReponses
     - don't send a new request if item is in cache
     - Sanitize the "text" field.
     - Process for aggregation
