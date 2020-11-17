@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const Router = require('@koa/router');
 const {processRecent}  = require('./recent-helper');
-const {processHistorical}  = require('./historical-helper')
+const {processHistorical}  = require('./historical-helper2')
 
 const app = module.exports = new Koa();
 const router = new Router();
@@ -22,11 +22,18 @@ router.get('/historical', async (ctx, next)=>{
     ctx.body = result;
 });
 
+
+// TODO: Check better way
+process.on('uncaughtException', function (err) {
+    console.log(err);
+}); 
+
 app
 .use(router.routes())
 .use(router.allowedMethods());
 
 if (!module.parent) {
     app.listen(port);
-    console.log(`Listening on port: ${port}`)
+    console.log(`Listening on port: ${port}, node version ${process.version}`)
 }
+
