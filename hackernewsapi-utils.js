@@ -24,9 +24,14 @@ function getLatestItemUrls(maxIdResponse, latestMaxId, count){
     return res;
 }
 
+function getItemUrls(items){
+    return items.map(x=> `${getItemUrl}${x}.json`);
+}
+
 module.exports = {
     getLatest,
     getMaxId,
     getLatestItemUrls,
+    getItemUrls,
     getItemUrl
 }

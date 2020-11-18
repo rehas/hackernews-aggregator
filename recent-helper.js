@@ -1,6 +1,6 @@
 const ax = require('axios')
-const {removeStopWords, filterChars}  = require("./utils")
-const {getLatest, getLatestItemUrls,getItemUrl} = require("./hackernewsapi-utils")
+const {removeStopWords, filterChars, filterWordsStartingWithNumbers}  = require("./utils")
+const {getLatest, getLatestItemUrls,getItemUrls ,getItemUrl} = require("./hackernewsapi-utils")
 
 const PromisePool = require('@supercharge/promise-pool');
 
@@ -14,14 +14,8 @@ async function getTitles(idList){
     console.log(`${idsNotInCache.length} new items arrived`);
     const l = idsNotInCache.length;
     
-    // for (let i = 0; i < 5; i++) {
-    //     let t = idsNotInCache.slice(i*(l/5), (i+1)*(l/5) ).map(x=> {
-    //         return ax.get(`${getItemUrl}${x}.json`);
-    //     });
-    //     result = [...result, ...t]
-    // }
-
-    let urls = idsNotInCache.map(x=> `${getItemUrl}${x}.json`)
+    // let urls = idsNotInCache.map(x=> `${getItemUrl}${x}.json`)
+    let urls = getItemUrls(idsNotInCache);
 
     const { results, errors } = await PromisePool
     .for(urls)
@@ -57,8 +51,11 @@ function updateCheckedTitles(titles){
         if (!x[key]){
             return;
         }
-        x[key].split(' ').filter(w=> filterChars(w)).forEach(element => {
-            frequencyMap[element] = (frequencyMap[element] || 0) +1;
+        x[key].split(' ')
+            .filter(w=> filterChars(w))
+            .filter(w=> filterWordsStartingWithNumbers(w))
+            .forEach(element => {
+                frequencyMap[element] = (frequencyMap[element] || 0) +1;
         });
         checkedTitles[key] = frequencyMap
     })

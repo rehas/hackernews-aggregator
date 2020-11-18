@@ -1,5 +1,5 @@
 const ax = require('axios')
-const {removeStopWords, filterChars}  = require("./utils")
+const {removeStopWords, filterChars, filterWordsStartingWithNumbers}  = require("./utils")
 const { getMaxId,getLatestItemUrls ,getItemUrl} = require("./hackernewsapi-utils")
 
 const PromisePool = require('@supercharge/promise-pool');
@@ -29,8 +29,11 @@ function updateCheckedComments(comments){
     comments.forEach(x=>{
         const key = Object.keys(x)[0];
         const frequencyMap = {}
-        x[key].split(' ').filter(w=> filterChars(w)).forEach(element => {
-            frequencyMap[element] = (frequencyMap[element] || 0) +1;
+        x[key].split(' ')
+            .filter(w=> filterChars(w))
+            .filter(w=> filterWordsStartingWithNumbers(w))
+            .forEach(element => {
+                frequencyMap[element] = (frequencyMap[element] || 0) +1;
         });
         checkedComments[key] = frequencyMap
     })

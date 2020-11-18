@@ -22,7 +22,12 @@ function filterChars(word){
     return res;
 }
 
+function filterWordsStartingWithNumbers(word){
+    return !(word[0] >='0' && word[0] <='9')
+}
+
 module.exports = {
     removeStopWords,
-    filterChars
+    filterChars,
+    filterWordsStartingWithNumbers
 }
