@@ -9,28 +9,24 @@ let checkedTitles = {};
 let titleWordCounts = {};
 
 async function getTitles(idList){
-    let result = []
     const idsNotInCache = idList.filter(x=> !checkedTitles[x])
     console.log(`${idsNotInCache.length} new items arrived`);
-    const l = idsNotInCache.length;
     
-    // let urls = idsNotInCache.map(x=> `${getItemUrl}${x}.json`)
     let urls = getItemUrls(idsNotInCache);
 
     const { results, errors } = await PromisePool
     .for(urls)
     .withConcurrency(10)
     .process(async data => {
-        // console.log(data);
         let result = await ax.get(data);
-        
         return result 
-    })
-    console.log(errors);
-    return results;
+    });
 
-    
-    // return Promise.all(result);
+    if(errors.length > 0){
+        console.log("Errors on getTitles(idList)");
+        console.log(errors);
+    }
+    return results;
 }
 
 function sanitizeTitles(titlesReponseData){
@@ -63,21 +59,18 @@ function updateCheckedTitles(titles){
 
 function udpateWordCounts(newTitles){
     newTitles.forEach(title=> {
-        console.log("new title coming")
-        console.log(title)
         let titleId = Object.keys(title)[0]
         if (!checkedTitles[titleId]){
             return;
         }
         Object.keys(checkedTitles[titleId]).forEach(k=>{
-            // console.log(k)
-            titleWordCounts[k] = (titleWordCounts[k] || 0) + checkedTitles[titleId][k]
+            titleWordCounts[k] = (titleWordCounts[k] || 0) + checkedTitles[titleId][k];
         })
     })
 }
 
 function getTopPopularWords(titleWordCounts, top){
-    let result = []
+    let result = [];
     Object.keys(titleWordCounts).forEach(x=>{
         result.push([x, titleWordCounts[x]])
     })
@@ -90,11 +83,10 @@ async function processRecent(){
         let responseData = await getLatest();
         let latest250 = responseData.data.slice(0, 250)
         
-        console.log(latest250.length)
         let titlesReponseData = await getTitles(latest250);
-        console.log(titlesReponseData);
+
         let titles = sanitizeTitles(titlesReponseData);
-        console.log(titles)
+
         updateCheckedTitles(titles);
         
         udpateWordCounts(titles);

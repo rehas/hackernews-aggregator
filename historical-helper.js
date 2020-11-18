@@ -15,12 +15,14 @@ async function getComments(maxIdResponse, latestMaxId, count){
     .for(res)
     .withConcurrency(10)
     .process(async data => {
-        // console.log(data);
         let result = await ax.get(data);
         
         return result.data 
     })
-    console.log(errors);
+    if(errors.length > 0){
+        console.log("Error on getComments(maxIdResponse, latestMaxId, count)")
+        console.log(errors);
+    }
     return results;
 }
 
@@ -41,12 +43,9 @@ function updateCheckedComments(comments){
 
 function udpateWordCounts(newComments){
     newComments.forEach(comment=> {
-        console.log("new comment coming")
-        console.log(comment)
         let commentId = Object.keys(comment)[0]
         Object.keys(checkedComments[commentId]).forEach(k=>{
-            // console.log(k)
-            commentWordCounts[k] = (commentWordCounts[k] || 0) + checkedComments[commentId][k]
+            commentWordCounts[k] = (commentWordCounts[k] || 0) + checkedComments[commentId][k];
         })
     })
 }
@@ -56,14 +55,12 @@ function getTopPopularWords(commentWordCounts, top){
     Object.keys(commentWordCounts).forEach(x=>{
         result.push([x, commentWordCounts[x]])
     })
-    // console.log(result)
     return result.sort((a,b) => b[1] - a[1]).slice(0,top);
 }
 
 
 async function processHistorical(){
     try {
-        let res = []
         const maxIdResponse = await getMaxId().catch( e => { console.error("Error on GetMaxId") });
         
         let currentMaxId = maxIdResponse && maxIdResponse.data || 25000000;
@@ -71,8 +68,6 @@ async function processHistorical(){
         const numberOfItemsToCheck = 100;
 
         let commentList = await getComments(currentMaxId, latestMaxId, numberOfItemsToCheck);
-        
-        // console.log(commentList);
         
         latestMaxId = currentMaxId;
         
@@ -82,22 +77,16 @@ async function processHistorical(){
             return {[id]: text}
         });
         
-        // console.log(commentTexts);
-        
         updateCheckedComments(commentTexts);
         
-        // console.log(checkedComments);
+        udpateWordCounts(commentTexts);
         
-        udpateWordCounts(commentTexts)
+        let resultArray = getTopPopularWords(commentWordCounts, 25);
         
-        // console.log(commentWordCounts)
-        
-        let resultArray = getTopPopularWords(commentWordCounts, 25)
-        
-        let result = {}
+        let result = {};
         
         resultArray.forEach(x=>{
-            result[x[0]] = x[1]
+            result[x[0]] = x[1];
         });
       
         return result;

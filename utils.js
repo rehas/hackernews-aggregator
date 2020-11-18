@@ -16,7 +16,8 @@ function removeStopWords(inputString){
 
 function filterChars(word){
     
-    let charArr = ['&', '(', ')', ',', '<', '>', ';', '!', "\\n", '“', '’', '”', '='];
+    let charArr = ['&', '(', ')', ',', '<', '>', ';',
+                   '!', "\\n", '“', '’', '”', '='];
     var res = true;
     charArr.forEach(c=> res = res && word.indexOf(c) <0 );
     return res;
