@@ -99,7 +99,6 @@ async function processRecent(){
             result[x[0]] = x[1]
         });
         console.log("TITLES", titles.length)
-        console.log("Result", result.length)
         console.log("CHECKEDTITLES", Object.keys( checkedTitles).length)
         return result;
     } catch (error) {
