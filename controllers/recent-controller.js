@@ -1,6 +1,6 @@
 const ax = require('axios')
-const {removeStopWords, filterChars, filterWordsStartingWithNumbers}  = require("./utils")
-const {getLatest, getLatestItemUrls,getItemUrls ,getItemUrl} = require("./hackernewsapi-utils")
+const {removeStopWords, filterChars, filterWordsStartingWithNumbers}  = require("../utils/utils");
+const {getLatest, getLatestItemUrls,getItemUrls ,getItemUrl} = require("../utils/hackernewsapi-utils");
 
 const PromisePool = require('@supercharge/promise-pool');
 

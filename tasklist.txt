@@ -7,9 +7,11 @@ Sungevity Interview 20201113
 
 - Readme.MD
 
-- Comments and refactoring
+- Comments 
 
-- Remove unnecessary logs
++ refactoring
+
++ Remove unnecessary logs
 
 - install and run instructions
 

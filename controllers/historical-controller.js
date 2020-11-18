@@ -1,6 +1,6 @@
 const ax = require('axios')
-const {removeStopWords, filterChars, filterWordsStartingWithNumbers}  = require("./utils")
-const { getMaxId,getLatestItemUrls ,getItemUrl} = require("./hackernewsapi-utils")
+const {removeStopWords, filterChars, filterWordsStartingWithNumbers}  = require("../utils/utils")
+const { getMaxId,getLatestItemUrls ,getItemUrl} = require("../utils/hackernewsapi-utils")
 
 const PromisePool = require('@supercharge/promise-pool');
 
@@ -65,7 +65,7 @@ async function processHistorical(){
         
         let currentMaxId = maxIdResponse && maxIdResponse.data || 25000000;
         
-        const numberOfItemsToCheck = 100;
+        const numberOfItemsToCheck = 1;
 
         let commentList = await getComments(currentMaxId, latestMaxId, numberOfItemsToCheck);
         

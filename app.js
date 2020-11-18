@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const Router = require('@koa/router');
-const {processRecent}  = require('./recent-helper');
-const {processHistorical}  = require('./historical-helper')
+const {processRecent}  = require('./controllers/recent-controller');
+const {processHistorical}  = require('./controllers/historical-controller');
 
 const app = module.exports = new Koa();
 const router = new Router();
