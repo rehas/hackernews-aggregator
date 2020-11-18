@@ -11,3 +11,12 @@ for development: `npm run-script dev` : utilizes nodemon
 
 for server start : `npm run-script start` 
 
+recommended node version : `12^`
+
+#
+
+## Endpoints
+
+`/recent/` : Gets the last 250 items and returns the most frequently used words in titles.
+
+`/historical/` : Gets the last 1000 items, filters only comments and returns the most used words. 
