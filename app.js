@@ -22,12 +22,6 @@ router.get('/historical', async (ctx, next)=>{
     ctx.body = result;
 });
 
-
-// TODO: Check better way
-process.on('uncaughtException', function (err) {
-    console.log(err);
-}); 
-
 app
 .use(router.routes())
 .use(router.allowedMethods());
