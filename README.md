@@ -17,6 +17,8 @@ recommended node version : `12^`
 
 ## Endpoints
 
-`/recent/` : Gets the last 250 items and returns the most frequently used words in titles.
+`localhost:3000/` : default root
 
-`/historical/` : Gets the last 1000 items, filters only comments and returns the most used words. 
+`/recent` : Gets the last 250 items and returns the most frequently used words in titles.
+
+`/historical` : Gets the last 1000 items, filters only comments and returns the most used words. 
