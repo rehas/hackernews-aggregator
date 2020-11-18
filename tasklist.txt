@@ -7,6 +7,23 @@ Sungevity Interview 20201113
 
 - Readme.MD
 
+- Comments and refactoring
+
+- Remove unnecessary logs
+
+- install and run instructions
+
+- deploy?
+
+- throttling?
+
+- caching options?
+
+- tests
+    - structure
+
+
+
 + Setup server
     + Node 12.19
     + nodemon
@@ -14,8 +31,8 @@ Sungevity Interview 20201113
     + return initial data from /recent endpoint
 
 - Setup endpoints
-    - /recent
-    - /historical
+    + /recent
+    + /historical
     - /karma
 
 - /recent
@@ -36,21 +53,23 @@ Sungevity Interview 20201113
         + Create a global dictionary for all the words
     + Create a dictionary
     + Aggregate the results
-    - improve sanitation
+    + improve sanitation
 
 - /historical
     -* parallelize the calls
     + Get the lastest 1000 items
         - Walk back from last one
     + filter out the ones that are not comments.
-    HERE=> Nicely parallelize the calls with 100 max concurrency level
-        - Clean code
-        - Speedup resolveReponses
-    - don't send a new request if item is in cache
-    - Sanitize the "text" field.
-    - Process for aggregation
+    + Nicely parallelize the calls with 100 max concurrency level
+        + Clean code
+        + Speedup resolveReponses
+    + don't send a new request if item is in cache
+        + only send a request for newer items
+    + Sanitize the "text" field.
+    + Process for aggregation
 
 - [DO LAST] /karma 
     - Figure this out
         - What exactly is karma
         - How the calculation works
+
