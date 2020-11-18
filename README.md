@@ -7,7 +7,7 @@
 
 install with: `npm ci`
 
-for development: `npm run-script dev` : utilizes nodemon
+for development: `npm run-script dev` : utilizes nodemon via npx
 
 for server start : `npm run-script start` 
 
