@@ -10,7 +10,6 @@ function removeStopWords(inputString){
                     .replace(new RegExp('[#"?%.$:\\-\']', "gi"), '')
                     .replace(new RegExp("\\b\d+\\b", "gi"), '')
                     .replace(new RegExp("<[^>]*>", ''))
-                    .replace(new RegExp("<[^>]*>", ''))
                     .replace("-", "")
 }
 
